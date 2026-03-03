@@ -16,6 +16,12 @@ const analyticsRoutes = require('./routes/analytics');
 
 const app = express();
 
+// Trust proxy - required for Render and other reverse proxies
+// This allows express-rate-limit to correctly identify client IPs
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 // Security middleware
 app.use(helmet());
 
